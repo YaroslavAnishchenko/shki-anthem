@@ -3,47 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Гимн Школы — Visualizer</title>
+    <title>Гимн ШКИ — Green Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="background-glow" id="bg-glow"></div>
-    
-    <div class="container">
-        <header class="header">
-            <h1 class="glitch">Гимн Нашей Школы</h1>
-            <p class="subtitle">Visual Experience</p>
-        </header>
+<body class="noise flex flex-col min-h-screen">
 
-        <main>
-            <section class="player-card">
-                <canvas id="visualizer"></canvas>
+    <div class="green-glow top-1/4 -left-20"></div>
+    <div class="green-glow bottom-1/4 -right-20"></div>
 
-                <div class="cover-art" id="cover">
-                    <div class="center-hole"></div>
-                </div>
-                
-                <audio id="audio" src="anthem.mp3" crossorigin="anonymous"></audio>
-                
-                <div class="controls">
-                    <button id="play-btn" class="control-btn"><i class="fas fa-play"></i></button>
-                </div>
-                
-                <div class="progress-area">
-                    <span id="current-time">0:00</span>
-                    <div class="progress-bar" id="progress-container">
-                        <div class="progress" id="progress"></div>
+    <header class="p-8 flex justify-between items-center w-full max-w-7xl mx-auto z-20">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-[#00ff41] rounded-full"></div>
+            <span class="font-bold tracking-tighter text-xl text-white">ШКИ.</span>
+        </div>
+        <div class="hidden md:flex gap-6 text-[10px] uppercase tracking-[0.3em] font-medium">
+            <span class="text-white">Лаборатории</span>
+            <span class="text-white">Проекты</span>
+            <span class="text-[#00ff41]">Гимн</span>
+        </div>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center justify-center px-6 py-10 relative z-10">
+        <div class="text-center mb-10">
+            <div class="inline-block px-3 py-1 border border-[#00ff41] text-[#00ff41] text-[10px] mb-6 rounded uppercase tracking-widest animate-pulse">
+                Audio Processing Unit
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black mb-2 text-white">
+                гимн школы<br>
+                <span class="text-transparent" style="-webkit-text-stroke: 1px white;">креативных</span> 
+                <span class="text-[#00ff41]">индустрий</span>
+            </h1>
+        </div>
+
+        <div id="player" class="player-container w-full max-w-2xl p-10 flex flex-col items-center relative overflow-hidden">
+            <div class="scanline"></div>
+            
+            <div class="w-full h-32 flex items-center justify-center gap-1 mb-8 border-b border-white/5 pb-8">
+                <div id="visualizer" class="flex items-end gap-1 h-full">
                     </div>
-                    <span id="duration">0:00</span>
+            </div>
+
+            <div class="w-full flex items-center justify-between mb-4">
+                <div>
+                    <h3 class="text-2xl font-bold tracking-tight text-white">Гимн ШКИ (+)</h3>
+                    <p class="text-gray-500 text-sm uppercase tracking-widest mt-1">Официальный трек</p>
                 </div>
-            </section>
-        </main>
-        
-        <footer>
-            <p>© 2026. Powered by Sound Waves.</p>
-        </footer>
-    </div>
+                <button id="karaokeBtn" class="karaoke-toggle flex items-center gap-2 px-4 py-2 border border-white/10 rounded-lg text-[10px] uppercase font-bold tracking-widest hover:border-[#00ff41] transition-all text-white">
+                    Караоке
+                </button>
+            </div>
+
+            <div class="lyrics-container" id="lyricsScroll">
+                <div id="lyrics-track" class="flex flex-col">
+                    <div class="lyric-section-label">Куплет 1</div>
+                    <p class="lyric-line" data-time="4.5">Мы молодежь веселые, активные</p>
+                    <p class="lyric-line" data-time="6.5">Радуемся жизни, мега-позитывные</p>
+                    <p class="lyric-line" data-time="9">Крутимся, вертимся, прыгаем, скачем</p>
+                    <p class="lyric-line" data-time="11.5">Готовы выполнять любые задачи</p>
+                    <p class="lyric-line" data-time="14">Учимся мы в уникальном месте</p>
+                    <p class="lyric-line" data-time="16">Трудимся честно, побеждаем вместе</p>
+                    <p class="lyric-line" data-time="18">Креатив, эксклюзив, позитив, синергия</p>
+                    <p class="lyric-line" data-time="21.5">С нами сила, за нами Россия</p>
+
+                    <div class="lyric-section-label">Прехорус</div>
+                    <p class="lyric-line" data-time="23">ШКИ наша гордость, наша семья</p>
+                    <p class="lyric-line" data-time="26.5">ШКИ это место, где можно творить</p><!--Остановились тут-->
+                    <p class="lyric-line" data-time="37">ШКИ это он, это ты, это я</p>
+                    <p class="lyric-line" data-time="28.5">Каждый здесь сможет о себе заявить</p>
+
+                    <div class="lyric-section-label">Припев</div>
+                    <p class="lyric-line" data-time="44">ШКИ! ШКИ! ШКИ!</p>
+
+                    <div class="lyric-section-label">Куплет 2</div>
+                    <p class="lyric-line" data-time="58">Место для творчества и личностного роста</p>
+                    <p class="lyric-line" data-time="62">Учиться интересно нам легко и очень просто</p>
+                    <p class="lyric-line" data-time="65.5">Строим мы в будущее крепкие мосты</p>
+                    <p class="lyric-line" data-time="69">Наша энергия не даст нам остыть</p>
+
+                    <p class="lyric-line" data-time="72.5">Фото и видео, 3D анимация</p>
+                    <p class="lyric-line" data-time="76">Работа со звуком, мультипликация</p>
+                    <p class="lyric-line" data-time="79.5">VR и дополненная реальность</p>
+                    <p class="lyric-line" data-time="83">В этом вся наша многофункциональность</p>
+                </div>
+            </div>
+
+            <div class="w-full mb-10 mt-8">
+                <div id="progress-container" class="h-[3px] w-full bg-white/10 relative cursor-pointer group">
+                    <div id="progress" class="h-full bg-[#00ff41] w-0 relative transition-all duration-100"></div>
+                </div>
+                <div class="flex justify-between mt-3 font-mono text-[10px] text-gray-500 uppercase tracking-tighter">
+                    <span id="current-time">00:00</span>
+                    <span id="duration-time">00:00</span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-10 w-full">
+                <button id="playBtn" class="play-btn w-20 h-20 rounded-full flex items-center justify-center">
+                    <svg id="playIcon" width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="pauseIcon" class="hidden" width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-12 flex gap-3">
+            <span class="tag">#КРЕАТИВ</span>
+            <span class="tag">#БУДУЩЕЕ</span>
+            <span class="tag">#ШКИ</span>
+        </div>
+    </main>
+
+    <audio id="audioSource" src="anthem.mp3"></audio>
 
     <script src="script.js"></script>
 </body>
