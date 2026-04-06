@@ -1,0 +1,240 @@
+:root {
+    --primary-color: #6c5ce7;
+    --secondary-color: #a29bfe;
+    --bg-color: #0f0f13;
+    --text-color: #fdfdfd;
+    --card-bg: rgba(25, 25, 30, 0.7);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Фоновое неоновое свечение */
+.background-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(108, 92, 231, 0.15) 0%, rgba(15, 15, 19, 0) 70%);
+    z-index: -1;
+    border-radius: 50%;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--primary-color);
+    text-shadow: 0 0 15px rgba(108, 92, 231, 0.5);
+}
+
+.subtitle {
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* Плеер */
+.player-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    margin-bottom: 50px;
+}
+
+/* Крутящийся диск */
+.cover-art {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(45deg, #2d3436, #000000);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 30px rgba(108, 92, 231, 0.3), inset 0 0 10px rgba(255,255,255,0.1);
+    margin-bottom: 30px;
+    transition: transform 0.3s;
+    border: 2px solid #333;
+}
+
+.cover-art.play {
+    animation: spin 6s linear infinite;
+}
+
+.center-hole {
+    width: 30px;
+    height: 30px;
+    background-color: var(--bg-color);
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* Кнопки */
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.control-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4);
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(108, 92, 231, 0.6);
+}
+
+/* Полоса прогресса */
+.progress-area {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.progress-area span {
+    font-size: 0.85rem;
+    color: #aaa;
+    min-width: 40px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 4px;
+    transition: width 0.1s linear;
+}
+
+/* Секция текста */
+.lyrics-section {
+    width: 100%;
+    text-align: center;
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.lyrics-section h2 {
+    margin-bottom: 25px;
+    color: var(--secondary-color);
+}
+
+.lyrics-text p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #ccc;
+    font-size: 1.1rem;
+}
+
+footer {
+    margin-top: 50px;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    h1 { font-size: 2rem; }
+    .player-card, .lyrics-section { padding: 30px 20px; }
+    .cover-art { width: 160px; height: 160px; }
+    .control-btn { width: 55px; height: 55px; font-size: 1.2rem; }
+}
+
+.background-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vw;
+    /* Начальный цвет, который будет меняться JS */
+    background: radial-gradient(circle, rgba(108, 92, 231, 0.2) 0%, rgba(15, 15, 19, 0) 70%);
+    z-index: -1;
+    border-radius: 50%;
+    transition: transform 0.1s ease-out; /* Для плавности цветомузыки */
+}
+
+#visualizer {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+}
+
+.player-card {
+    /* Немного увеличим карточку для визуализатора */
+    max-width: 500px;
+}
+
+/* Эффект свечения для текста при игре */
+.playing-glow {
+    text-shadow: 0 0 20px var(--primary-color);
+}

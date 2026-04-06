@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гимн Школы — Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background-glow" id="bg-glow"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="glitch">Гимн Нашей Школы</h1>
+            <p class="subtitle">Visual Experience</p>
+        </header>
+
+        <main>
+            <section class="player-card">
+                <canvas id="visualizer"></canvas>
+
+                <div class="cover-art" id="cover">
+                    <div class="center-hole"></div>
+                </div>
+                
+                <audio id="audio" src="anthem.wav" crossorigin="anonymous"></audio>
+                
+                <div class="controls">
+                    <button id="play-btn" class="control-btn"><i class="fas fa-play"></i></button>
+                </div>
+                
+                <div class="progress-area">
+                    <span id="current-time">0:00</span>
+                    <div class="progress-bar" id="progress-container">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <span id="duration">0:00</span>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>© 2026. Powered by Sound Waves.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
