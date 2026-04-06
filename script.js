@@ -1,4 +1,7 @@
+// Запускаем код ТОЛЬКО после полной загрузки страницы
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // Получаем элементы
     const audio = document.getElementById('audioSource');
     const playBtn = document.getElementById('playBtn');
     const playIcon = document.getElementById('playIcon');
@@ -11,12 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const player = document.getElementById('player');
     const visualizer = document.getElementById('visualizer');
     const lines = document.querySelectorAll('.lyric-line');
-    const lyricsScroll = document.getElementById('lyricsScroll');
+
+    // Проверка на наличие критичных элементов (чтобы избежать ошибки null)
+    if (!audio || !playBtn || !visualizer) {
+        console.error("ОШИБКА: Не найдены элементы плеера в HTML!");
+        return; 
+    }
 
     let audioCtx, analyser, source, dataArray;
     let isStarted = false;
 
-    // Создаем бары для визуализатора
+    // Создаем бары визуализатора
     const bars = [];
     for(let i = 0; i < 32; i++) {
         const bar = document.createElement('div');
@@ -25,10 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
         bars.push(bar);
     }
 
-    // Инициализация Web Audio API (должна происходить по клику пользователя)
     async function initAudio() {
         if (isStarted) return;
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Кроссбраузерный AudioContext
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        
         analyser = audioCtx.createAnalyser();
         source = audioCtx.createMediaElementSource(audio);
         source.connect(analyser);
@@ -39,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderFrame();
     }
 
-    // Анимация визуализатора
     function renderFrame() {
         requestAnimationFrame(renderFrame);
         if (!isStarted || audio.paused) return;
@@ -50,9 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Управление воспроизведением
     playBtn.addEventListener('click', async () => {
         await initAudio();
+        
+        // Восстановление контекста аудио, если браузер его заблокировал
+        if (audioCtx && audioCtx.state === 'suspended') {
+            await audioCtx.resume();
+        }
+
         if (audio.paused) {
             audio.play();
             playIcon.classList.add('hidden');
@@ -64,12 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Обновление прогресс-бара, таймеров и караоке
     audio.addEventListener('timeupdate', () => {
         const p = (audio.currentTime / audio.duration) * 100;
-        progress.style.width = `${p}%`;
-        currentTimeEl.textContent = formatTime(audio.currentTime);
-        durationTimeEl.textContent = formatTime(audio.duration || 0);
+        if(progress) progress.style.width = `${p}%`;
+        
+        if(currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
+        if(durationTimeEl) durationTimeEl.textContent = formatTime(audio.duration || 0);
 
         lines.forEach((line, idx) => {
             const startTime = parseFloat(line.dataset.time);
@@ -79,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (audio.currentTime >= startTime && audio.currentTime < endTime) {
                 if(!line.classList.contains('active')) {
                     line.classList.add('active');
-                    // Плавная прокрутка к активной строке
                     line.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             } else {
@@ -88,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Форматирование времени (ММ:СС)
     function formatTime(s) {
         if (isNaN(s)) return "0:00";
         const min = Math.floor(s / 60);
@@ -96,16 +109,18 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${min}:${sec.toString().padStart(2, '0')}`;
     }
 
-    // Тоггл режима караоке
-    karaokeBtn.addEventListener('click', () => {
-        player.classList.toggle('lyrics-active');
-        karaokeBtn.classList.toggle('active');
-    });
+    if(karaokeBtn) {
+        karaokeBtn.addEventListener('click', () => {
+            if(player) player.classList.toggle('lyrics-active');
+            karaokeBtn.classList.toggle('active');
+        });
+    }
 
-    // Перемотка трека по клику на прогресс-бар
-    progressContainer.addEventListener('click', (e) => {
-        const rect = progressContainer.getBoundingClientRect();
-        const pos = (e.clientX - rect.left) / rect.width;
-        audio.currentTime = pos * audio.duration;
-    });
+    if(progressContainer) {
+        progressContainer.addEventListener('click', (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pos * audio.duration;
+        });
+    }
 });
