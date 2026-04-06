@@ -4,237 +4,81 @@
     --bg-color: #0f0f13;
     --text-color: #fdfdfd;
     --card-bg: rgba(25, 25, 30, 0.7);
+    --active-lyric: #00cec9;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    overflow-x: hidden;
-    position: relative;
+    background-color: var(--bg-color); color: var(--text-color);
+    min-height: 100vh; display: flex; justify-content: center;
+    overflow-x: hidden; position: relative;
+    touch-action: pan-y; /* Для правильной работы свайпов */
 }
 
-/* Фоновое неоновое свечение */
-.background-glow {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60vw;
-    height: 60vw;
-    background: radial-gradient(circle, rgba(108, 92, 231, 0.15) 0%, rgba(15, 15, 19, 0) 70%);
-    z-index: -1;
-    border-radius: 50%;
-}
-
-.container {
-    width: 100%;
-    max-width: 800px;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--primary-color);
-    text-shadow: 0 0 15px rgba(108, 92, 231, 0.5);
-}
-
-.subtitle {
-    color: var(--secondary-color);
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-}
-
-/* Плеер */
-.player-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
-    padding: 40px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    margin-bottom: 50px;
-}
-
-/* Крутящийся диск */
-.cover-art {
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(45deg, #2d3436, #000000);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 30px rgba(108, 92, 231, 0.3), inset 0 0 10px rgba(255,255,255,0.1);
-    margin-bottom: 30px;
-    transition: transform 0.3s;
-    border: 2px solid #333;
-}
-
-.cover-art.play {
-    animation: spin 6s linear infinite;
-}
-
-.center-hole {
-    width: 30px;
-    height: 30px;
-    background-color: var(--bg-color);
-    border-radius: 50%;
-    border: 2px solid var(--primary-color);
-}
-
-@keyframes spin {
-    100% { transform: rotate(360deg); }
-}
-
-/* Кнопки */
-.controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.control-btn {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4);
-    transition: all 0.2s ease;
-}
-
-.control-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 25px rgba(108, 92, 231, 0.6);
-}
-
-/* Полоса прогресса */
-.progress-area {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.progress-area span {
-    font-size: 0.85rem;
-    color: #aaa;
-    min-width: 40px;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    cursor: pointer;
-    overflow: hidden;
-}
-
-.progress {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    border-radius: 4px;
-    transition: width 0.1s linear;
-}
-
-/* Секция текста */
-.lyrics-section {
-    width: 100%;
-    text-align: center;
-    background: var(--card-bg);
-    border-radius: 24px;
-    padding: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.lyrics-section h2 {
-    margin-bottom: 25px;
-    color: var(--secondary-color);
-}
-
-.lyrics-text p {
-    margin-bottom: 20px;
-    line-height: 1.8;
-    color: #ccc;
-    font-size: 1.1rem;
-}
-
-footer {
-    margin-top: 50px;
-    color: #555;
-    font-size: 0.9rem;
-}
-
-/* Адаптивность для мобильных устройств */
-@media (max-width: 600px) {
-    h1 { font-size: 2rem; }
-    .player-card, .lyrics-section { padding: 30px 20px; }
-    .cover-art { width: 160px; height: 160px; }
-    .control-btn { width: 55px; height: 55px; font-size: 1.2rem; }
+#particles-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 10;
 }
 
 .background-glow {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80vw;
-    height: 80vw;
-    /* Начальный цвет, который будет меняться JS */
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 80vw; height: 80vw;
     background: radial-gradient(circle, rgba(108, 92, 231, 0.2) 0%, rgba(15, 15, 19, 0) 70%);
-    z-index: -1;
-    border-radius: 50%;
-    transition: transform 0.1s ease-out; /* Для плавности цветомузыки */
+    z-index: -1; border-radius: 50%; transition: transform 0.1s ease-out;
 }
 
-#visualizer {
-    width: 100%;
-    height: 100px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-}
+.container { width: 100%; max-width: 600px; padding: 40px 20px; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+
+.header { text-align: center; margin-bottom: 30px; }
+h1 { font-size: 2.5rem; color: transparent; -webkit-text-stroke: 1px var(--primary-color); text-shadow: 0 0 15px rgba(108, 92, 231, 0.5); }
+.subtitle { color: var(--secondary-color); margin-top: 10px; }
 
 .player-card {
-    /* Немного увеличим карточку для визуализатора */
-    max-width: 500px;
+    background: var(--card-bg); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px;
+    padding: 30px; width: 100%; display: flex; flex-direction: column; align-items: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); margin-bottom: 30px;
 }
 
-/* Эффект свечения для текста при игре */
-.playing-glow {
-    text-shadow: 0 0 20px var(--primary-color);
+#visualizer { width: 100%; height: 80px; margin-bottom: 20px; border-radius: 12px; }
+
+.cover-art {
+    width: 180px; height: 180px; background: linear-gradient(45deg, #1e272e, #000000);
+    border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 0 30px rgba(108, 92, 231, 0.3), inset 0 0 10px rgba(255,255,255,0.1);
+    margin-bottom: 25px; transition: transform 0.3s, box-shadow 0.3s; border: 2px solid #333; cursor: pointer;
 }
+.cover-art.play { animation: spin 5s linear infinite; }
+.cover-art.dj-mode { box-shadow: 0 0 50px #ff0055, inset 0 0 20px #00ffcc; border-color: #ff0055; animation: spin 2s linear infinite; }
+.center-hole { width: 30px; height: 30px; background-color: var(--bg-color); border-radius: 50%; border: 2px solid var(--primary-color); }
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.controls { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 20px; width: 100%; }
+.control-btn { background: var(--primary-color); color: white; border: none; width: 65px; height: 65px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4); transition: 0.2s; }
+.secondary-btn { width: 45px; height: 45px; font-size: 1.1rem; background: rgba(255, 255, 255, 0.1); box-shadow: none; }
+.control-btn:hover { transform: scale(1.1); background: var(--secondary-color); }
+
+.progress-area { width: 100%; display: flex; align-items: center; gap: 10px; }
+.progress-area span { font-size: 0.8rem; color: #aaa; min-width: 35px; }
+.progress-bar { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; cursor: pointer; overflow: hidden; }
+.progress { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); border-radius: 3px; transition: width 0.1s linear; }
+
+/* Караоке */
+.karaoke-section { width: 100%; background: var(--card-bg); border-radius: 20px; padding: 20px; text-align: center; overflow: hidden; transition: 0.3s opacity; }
+.karaoke-section.hidden { display: none; }
+.lyrics-container { height: 150px; overflow-y: scroll; scroll-behavior: smooth; display: flex; flex-direction: column; gap: 15px; padding: 60px 0; scrollbar-width: none; }
+.lyrics-container::-webkit-scrollbar { display: none; }
+.lyric-line { color: rgba(255, 255, 255, 0.3); font-size: 1.1rem; transition: 0.3s all; padding: 5px 10px; border-radius: 10px; }
+.lyric-line.active { color: var(--active-lyric); font-size: 1.3rem; font-weight: bold; text-shadow: 0 0 10px rgba(0, 206, 201, 0.5); transform: scale(1.05); }
+
+/* QR Модалка */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+.modal.hidden { display: none; }
+.modal-content { background: var(--card-bg); padding: 30px; border-radius: 20px; text-align: center; position: relative; border: 1px solid var(--primary-color); }
+.modal-content h2 { margin-bottom: 10px; }
+.modal-content p { color: #aaa; margin-bottom: 20px; font-size: 0.9rem; }
+.close { position: absolute; top: 10px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #aaa; }
+#qrcode { display: flex; justify-content: center; background: white; padding: 15px; border-radius: 10px; }
