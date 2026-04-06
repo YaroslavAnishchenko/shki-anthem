@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Гимн ШКИ — Green Edition</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body class="noise flex flex-col min-h-screen">
 
@@ -41,8 +44,7 @@
             <div class="scanline"></div>
             
             <div class="w-full h-32 flex items-center justify-center gap-1 mb-8 border-b border-white/5 pb-8">
-                <div id="visualizer" class="flex items-end gap-1 h-full">
-                    </div>
+                <div id="visualizer" class="flex items-end gap-1 h-full"></div>
             </div>
 
             <div class="w-full flex items-center justify-between mb-4">
@@ -58,35 +60,15 @@
             <div class="lyrics-container" id="lyricsScroll">
                 <div id="lyrics-track" class="flex flex-col">
                     <div class="lyric-section-label">Куплет 1</div>
-                    <p class="lyric-line" data-time="4.5">Мы молодежь веселые, активные</p>
-                    <p class="lyric-line" data-time="6.5">Радуемся жизни, мега-позитывные</p>
+                    <p class="lyric-line" data-time="2">Мы молодежь веселые, активные</p>
+                    <p class="lyric-line" data-time="5.5">Радуемся жизни, мега-позитывные</p>
                     <p class="lyric-line" data-time="9">Крутимся, вертимся, прыгаем, скачем</p>
-                    <p class="lyric-line" data-time="11.5">Готовы выполнять любые задачи</p>
-                    <p class="lyric-line" data-time="14">Учимся мы в уникальном месте</p>
-                    <p class="lyric-line" data-time="16">Трудимся честно, побеждаем вместе</p>
-                    <p class="lyric-line" data-time="18">Креатив, эксклюзив, позитив, синергия</p>
-                    <p class="lyric-line" data-time="21.5">С нами сила, за нами Россия</p>
-
-                    <div class="lyric-section-label">Прехорус</div>
-                    <p class="lyric-line" data-time="23">ШКИ наша гордость, наша семья</p>
-                    <p class="lyric-line" data-time="26.5">ШКИ это место, где можно творить</p><!--Остановились тут-->
-                    <p class="lyric-line" data-time="37">ШКИ это он, это ты, это я</p>
-                    <p class="lyric-line" data-time="28.5">Каждый здесь сможет о себе заявить</p>
-
-                    <div class="lyric-section-label">Припев</div>
-                    <p class="lyric-line" data-time="44">ШКИ! ШКИ! ШКИ!</p>
-
-                    <div class="lyric-section-label">Куплет 2</div>
-                    <p class="lyric-line" data-time="58">Место для творчества и личностного роста</p>
-                    <p class="lyric-line" data-time="62">Учиться интересно нам легко и очень просто</p>
-                    <p class="lyric-line" data-time="65.5">Строим мы в будущее крепкие мосты</p>
-                    <p class="lyric-line" data-time="69">Наша энергия не даст нам остыть</p>
-
-                    <p class="lyric-line" data-time="72.5">Фото и видео, 3D анимация</p>
-                    <p class="lyric-line" data-time="76">Работа со звуком, мультипликация</p>
-                    <p class="lyric-line" data-time="79.5">VR и дополненная реальность</p>
-                    <p class="lyric-line" data-time="83">В этом вся наша многофункциональность</p>
-                </div>
+                    <p class="lyric-line" data-time="12.5">Готовы выполнять любые задачи</p>
+                    <p class="lyric-line" data-time="16">Учимся мы в уникальном месте</p>
+                    <p class="lyric-line" data-time="19.5">Трудимся честно, побеждаем вместе</p>
+                    <p class="lyric-line" data-time="23">Креатив, эксклюзив, позитив, синергия</p>
+                    <p class="lyric-line" data-time="26.5">С нами сила, за нами Россия</p>
+                    </div>
             </div>
 
             <div class="w-full mb-10 mt-8">
@@ -114,8 +96,8 @@
         </div>
     </main>
 
-    <audio id="audioSource" src="anthem.mp3"></audio>
+    <audio id="audioSource" src="./track.mp3"></audio>
 
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
